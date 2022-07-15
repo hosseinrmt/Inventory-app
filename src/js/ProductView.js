@@ -5,6 +5,7 @@ const productQuantity = document.querySelector("#product-quantity");
 const productCategory = document.querySelector("#product-category");
 const searchInput = document.querySelector("#search-input");
 const sortProducts = document.querySelector("#sort-products");
+const productNumber = document.querySelector(".product-number");
 
 class ProductView {
   constructor() {
@@ -38,7 +39,9 @@ class ProductView {
       );
 
       result += `<div class="flex items-center justify-between mb-2 w-full min-w-[400px]">
-      <span class="text-slate-400">${item.title}</span>
+      <input class="bg-slate-300 rounded-xl" type="text" id="product-list-title" data-product-id=${
+        item.id
+      } value=${item.title} class>
       <div class="flex items-center gap-x-3">
         <span class="text-slate-400">${new Date().toLocaleDateString(
           "fa-IR"
@@ -62,6 +65,16 @@ class ProductView {
     deleteBtns.forEach((item) =>
       item.addEventListener("click", (e) => this.deleteProduct(e))
     );
+
+    const productTitle = [...document.querySelectorAll("#product-list-title")];
+    productTitle.forEach((item) =>
+      item.addEventListener("blur", (e) => {
+        this.products.find((item) => item.id == e.target.dataset.productId).title = e.target.value
+        Storage.saveProduct(this.products.find((item) => item.id == e.target.dataset.productId))
+      })
+    );
+
+    productNumber.innerHTML = `${this.products.length}`;
   }
 
   searchProducts(e) {
