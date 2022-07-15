@@ -1,14 +1,9 @@
-// target :
-// 1. create category
-// 2. create product based on selected category
-// 3.edit product
-// 4. remove product
-// 5.save products in local storage
-// -> storage class for handle app methods
-// -> productView class
-// -> categoryView class
-// -> Main and App class
+import CategoryView from "./CategoryView.js";
+import ProductView from "./ProductView.js";
 
-import Storage from "./Storage.js";
-Storage.saveCategorie()
-class App {}
+document.addEventListener("DOMContentLoaded", () => {
+  CategoryView.SetApp();
+  ProductView.SetApp();
+  CategoryView.CreateCategoriesList();
+  ProductView.CreateProductsList(ProductView.products);
+});
